@@ -285,6 +285,12 @@ body {
         }
 
         .blog_content {
+            font-size: 18px;
+            line-height: 30px;
+            text-align: justify;
+        }
+
+        .blog_content {
             .first_para::first-letter {
                 color: crimson;
                 padding: 0 .3rem;
@@ -335,7 +341,22 @@ body {
         font-size: 14px;
         font-weight: 600;
     }
-
+    .side_card_img{
+        width: 33%;
+        object-fit: cover;
+    }
+    .card_body{
+        .card_details{
+            h5{
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            
+            }
+        }
+    }
     .sideBar_card {
         .about_blog {
             font-size: 14px;
@@ -345,6 +366,11 @@ body {
         .Sidebar_blogtext {
             font-size: 14px;
             text-align: justify;
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 
@@ -452,6 +478,7 @@ body {
     font-family: 'Times New Roman', Times, serif;
     position: relative;
     padding: 0px 50px;
+    text-transform: capitalize;
 
     &::before {
         position: absolute;
@@ -504,6 +531,21 @@ body {
             text-overflow: ellipsis;
         }
     }
+}
+.loader_section{
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+}
+.hidden{
+    display: none;
 }
 
 // login page design

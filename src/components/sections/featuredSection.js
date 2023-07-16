@@ -9,10 +9,10 @@ const FeaturedBlogs = () => {
 
     const getDate = async () => {
         firebase.getFeaturedData().then((resp) => {
-           
+
             const blogList = [];
             resp.forEach(doc => {
-                const blog = { id: doc.id, ...doc.data() };
+                const blog = { slug: doc.id, ...doc.data() };
                 blogList.push(blog);
 
             });
@@ -43,7 +43,10 @@ const FeaturedBlogs = () => {
 
                                 <div className="feature_slider_card">
                                     <div className="slider_img">
-                                        <img src={blogs[0]?.img} />
+                                        <img src={blogs[0]?.img} alt="blog_img" onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = "/assets/placeholder.gif";
+                                        }} />
                                     </div>
                                     <div className="featured_slider_title">
                                         <Link className="" to={`/blog/details/${blogs[0]?.slug}`}>

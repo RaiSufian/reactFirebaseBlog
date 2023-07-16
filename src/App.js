@@ -13,16 +13,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Footer from './components/footer';
 import ProtectedLink from './protectedLinks';
+import Loader from './components/loader/loader';
 import './style.scss';
 function App() {
   const location = useLocation();
   const pathName = location.pathname;
   return (
-    <div className="App">
+    <div className='App'>
       {
         pathName == "/auth" ? null : <Header />
       }
       <ToastContainer />
+      <Loader />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/about-us' element={<About />} />

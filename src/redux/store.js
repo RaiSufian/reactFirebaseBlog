@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import { combineReducers } from 'redux';
 import UserData from './slice/user';
+import loader from './slice/loading';
 
 const persistConfig = {
     key: 'root',
@@ -11,7 +12,8 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-    UserData
+    UserData,
+    loader
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

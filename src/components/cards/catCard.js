@@ -1,15 +1,19 @@
-const CatCard = () => {
+import { Link } from "react-router-dom";
+const CatCard = ({ blog }) => {
     return (
-        <div className="cat_card mb-4">
-            <div className="blog_Img">
-                <img src="https://arynews.tv/wp-content/uploads/2023/07/Mexico-1.jpg" alt="img" />
+        <Link to={`/blog/details/${blog?.slug}`}>
+            <div className="cat_card mb-4">
+                <div className="blog_Img">
+                    <img src={blog?.img} alt="img" />
+                </div>
+                <div className="blog_details">
+                    <h4>
+                        {blog?.title}
+                    </h4>
+                </div>
             </div>
-            <div className="blog_details">
-                <h4>
-                    display: table tells the element to behave as a normal HTML table would.
-                </h4>
-            </div>
-        </div>
+        </Link>
+
     )
 }
 export default CatCard;

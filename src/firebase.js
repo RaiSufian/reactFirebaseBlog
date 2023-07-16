@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { createContext, useContext, useEffect, useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
-import { getFirestore, addDoc, collection, getDocs, query, limit, orderBy, where, doc, getDoc } from 'firebase/firestore';
+import { getFirestore, addDoc, collection, getDocs, query, limit, orderBy, where, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const firebaseConfig = {
@@ -59,8 +59,8 @@ export const FirebaseProvider = (prop) => {
   // Add new blog in react JS
   const addBlog = async (blog, date, img) => {
     const timestamp = Date.now();
-    console.log("time of blog during update,", timestamp)
-    const { title, keys, dis, author, views, fa } = blog;
+
+    const { title, keys, dis, author, views, fa, cat } = blog;
     const imgRef = ref(firebasestorage, `blogs/images/${new Date()}-${img.name}`)
     const imgAddress = await uploadBytes(imgRef, img);
     const imageURL = await getDownloadURL(ref(firebasestorage, imgAddress.ref.fullPath))
@@ -73,6 +73,7 @@ export const FirebaseProvider = (prop) => {
       date: date,
       views,
       fa,
+      cat,
       img: imageURL,
       id: timestamp
     })
@@ -90,22 +91,54 @@ export const FirebaseProvider = (prop) => {
     const feaQuery = query(blogsRef, where("fa", "==", "1"), limit(5));
     return await getDocs(feaQuery);
   }
-  // Get data about Category
+  // Get data about Category with limit
   const getCatData = async (name) => {
     const blogsRef = collection(firebaseStore, "blogs");
     const catQuery = query(blogsRef, where("cat", "==", name), limit(8));
     return await getDocs(catQuery);
   }
 
+  //  Get data aout Cat without limit 
+  const getCatData2 = async (name) => {
+    const blogsRef = collection(firebaseStore, "blogs");
+    const catQuery = query(blogsRef, where("cat", "==", name));
+    return await getDocs(catQuery);
+  }
+
   // Get blog details
-  const getBlogData = async (slug) => {
-    const docRef = doc(firebaseStore, "blogs", "LtldzMXGI4UTyzFRYR76");
-    return await getDoc(docRef);
+  const getBlogData = async (id) => {
+    const docRef = doc(firebaseStore, "blogs", id);
+    const result = await getDoc(docRef);
+    return result;
+  }
+
+  // Update views of blogs
+  const updateBlogsViews = (id, views) => {
+    const docRef = doc(firebaseStore, "blogs", id);
+    updateDoc(docRef, {
+      views: ++views
+    })
+  }
+
+  // Get Auther blogs 
+  const getAuthordata = async (name) => {
+
+    const docRef = collection(firebaseStore, "blogs");
+    const blogQuery = query(docRef, where("author", "==", name), limit(6));
+    return await getDocs(blogQuery);
+  }
+
+
+  // get papular blogs 
+  const getPapulorBlogs = async () => {
+    const docRef = collection(firebaseStore, "blogs");
+    const blogQuery = query(docRef, orderBy("views", "desc"), limit(5))
+    return await getDocs(blogQuery);
   }
   const userLogin = user ? true : false;
 
   return (
-    <FirebaseContext.Provider value={{ signUpwithEmail, signWithEmail, userLogin, UserSignOut, addBlog, getHeroData, getFeaturedData, getCatData, getBlogData }}>
+    <FirebaseContext.Provider value={{ signUpwithEmail, signWithEmail, userLogin, UserSignOut, addBlog, getHeroData, getFeaturedData, getCatData, getBlogData, updateBlogsViews, getAuthordata, getPapulorBlogs, getCatData2 }}>
       {prop.children}
     </FirebaseContext.Provider>
   )

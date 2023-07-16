@@ -8,14 +8,14 @@ const ProtectedLink = ({ children }) => {
   const [user, setuser] = useState();
   useEffect(() => {
     setuser(firebase.userLogin);
-  }, [])
+  }, [user])
 
-  if(user){
+  if (user) {
     return children;
   }
   else {
-    // navigate("/auth")
-    return children;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+    navigate("/auth")
+
   }
 
 }

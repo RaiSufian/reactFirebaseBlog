@@ -1,28 +1,30 @@
 import { Link } from 'react-router-dom';
 import { useFirebase } from '../../firebase';
 import { useState, useEffect } from 'react';
-
+import { startLoading, endLoading } from '../../redux/slice/loading';
+import { useDispatch } from 'react-redux';
 const HeroSection = () => {
     const firebase = useFirebase();
     const [blogs, setBlogs] = useState([]);
-
+    const dispatch = useDispatch();
     const getData = async () => {
         try {
             const querySnapshot = await firebase.getHeroData();
             const blogList = [];
 
             querySnapshot.forEach(doc => {
-                console.log("blog id is", doc.id)
                 const blog = { slug: doc.id, ...doc.data() };
                 blogList.push(blog);
             });
             setBlogs(blogList);
+            dispatch(endLoading());
         }
         catch (error) {
             console.log("hero blogs api error are", error);
         }
     }
     useEffect(() => {
+        dispatch(startLoading());
         getData();
     }, [])
     const getImges = () => {
@@ -38,7 +40,10 @@ const HeroSection = () => {
                     <div className="flex-2">
                         <Link to={`/blog/details/${blogs[0]?.slug}`}>
                             <div className="feature_1 position-relative">
-                                <img src={blogs[0]?.img} className="w-100 object-fit-cover h-100" />
+                                <img src={blogs[0]?.img} className="w-100 object-fit-cover h-100" onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = "/assets/placeholder.gif";
+                                }} />
                                 <div className="blog_text p-5">
                                     <p>{blogs[0]?.title}</p>
                                 </div>
@@ -50,7 +55,10 @@ const HeroSection = () => {
                         <div className="d-flex w-100 flex-column gap-3">
                             <Link to={`/blog/details/${blogs[1]?.slug}`}>
                                 <div className="feature_2 position-relative">
-                                    <img src={blogs[1]?.img} className="w-100 object-fit-cover h-100" />
+                                    <img src={blogs[1]?.img} className="w-100 object-fit-cover h-100" onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = "/assets/placeholder.gif";
+                                    }} />
                                     <div className="blog_text p-3">
                                         <p>{blogs[1]?.title}</p>
                                     </div>
@@ -59,7 +67,10 @@ const HeroSection = () => {
                             </Link>
                             <Link to={`/blog/details/${blogs[2]?.slug}`} >
                                 <div className="feature_2 position-relative">
-                                    <img src={blogs[2]?.img} className="w-100 object-fit-cover h-100" />
+                                    <img src={blogs[2]?.img} className="w-100 object-fit-cover h-100" onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = "/assets/placeholder.gif";
+                                    }} />
                                     <div className="blog_text p-3">
                                         <p>{blogs[2]?.title}</p>
                                     </div>

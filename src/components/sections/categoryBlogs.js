@@ -10,10 +10,10 @@ const CateBlogs = ({ title }) => {
     const getCatdata = async () => {
         try {
             const result = await firebase.getCatData(title);
-            console.log("my category api result is", result)
+          
             const blogList = [];
             result.forEach(doc => {
-                const blog = { id: doc.id, ...doc.data() };
+                const blog = { slug: doc.id, ...doc.data() };
                 blogList.push(blog);
             });
             setBlogs(blogList);
@@ -25,7 +25,7 @@ const CateBlogs = ({ title }) => {
     useEffect(() => {
         getCatdata();
     }, []);
-    console.log(`my category data is ${title}`, blogs);
+ 
     return (
         <>
             <div className="blog_heading">

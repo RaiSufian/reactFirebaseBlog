@@ -11,25 +11,25 @@ const Header = () => {
             <nav className="nav_bar">
                 <div className="nav_menu">
                     <div className="nav_item item_border">
-                        <Link to="/category/Pakistan">Pakistan</Link>
+                        <Link to="/category/pakistan">Pakistan</Link>
                     </div>
                     <div className="nav_item item_border">
-                        <Link to="/category/International">International</Link>
+                        <Link to="/category/international">International</Link>
                     </div>
                     <div className="nav_item item_border">
-                        <Link to="/category/Business">Business</Link>
+                        <Link to="/category/business">Business</Link>
                     </div>
                     <div className="nav_item item_border">
-                        <Link to="/category/Sports">Sports</Link>
+                        <Link to="/category/sports">Sports</Link>
                     </div>
                     <div className="nav_item  item_border">
-                        <Link to="/category/Science">Science</Link>
+                        <Link to="/category/science">Science</Link>
                     </div>
                     <div className="nav_item  item_border">
-                        <Link to="/category/Technology">Technology</Link>
+                        <Link to="/category/technology">Technology</Link>
                     </div>
                     <div className="nav_item">
-                        <Link to="/category/Health">Health</Link>
+                        <Link to="/category/health">Health</Link>
                     </div>
 
 

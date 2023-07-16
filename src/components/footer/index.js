@@ -46,7 +46,7 @@ const Footer = () => {
                                 </div>
                             </div>
                             <div className="copy_right">
-                                <span>© 3Hot developers have copy rights. 2023</span>
+                                <span>© 3Hot developers has copy rights. 2023</span>
                             </div>
                         </div>
                     </div>
